@@ -56,9 +56,10 @@ const actif = (h) => (h === '' ? path.replace(/\/$/, '') === u().replace(/\/$/, 
       if (!a) { pill.style.opacity = 0; return; }
       pill.style.transition = anim ? '' : 'none';
       pill.style.opacity = 1;
-      pill.style.width = a.offsetWidth + 'px';
-      pill.style.height = a.offsetHeight + 'px';
-      pill.style.transform = `translate(${a.offsetLeft}px, ${a.offsetTop}px)`;
+      const r = a.getBoundingClientRect(), p = m.getBoundingClientRect();
+      pill.style.width = r.width + 'px';
+      pill.style.height = r.height + 'px';
+      pill.style.transform = `translate(${r.left - p.left}px, ${r.top - p.top}px)`;
     };
     liens.forEach((a) => { a.addEventListener('mouseenter', () => place(a)); a.addEventListener('focus', () => place(a)); });
     m.addEventListener('mouseleave', () => place(actif));
