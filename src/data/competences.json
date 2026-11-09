@@ -1,0 +1,22 @@
+[
+  { "slug": "developper", "nom": "Développer des applications",
+    "resume": "Concevoir et programmer des sites et applications qui répondent à un besoin précis.",
+    "debut": "Lorem ipsum : premiers programmes guidés, petits exercices.",
+    "aujourdhui": "Lorem ipsum : applications complètes, du code propre et testé." },
+  { "slug": "donnees", "nom": "Organiser et exploiter des données",
+    "resume": "Structurer des bases de données et faire parler les informations.",
+    "debut": "Lorem ipsum : requêtes simples.",
+    "aujourdhui": "Lorem ipsum : modélisation et API de données." },
+  { "slug": "systemes", "nom": "Installer et administrer des systèmes",
+    "resume": "Mettre en place, configurer et dépanner des environnements (Linux notamment).",
+    "debut": "Lorem ipsum : découverte du terminal.",
+    "aujourdhui": "Lorem ipsum : installation et configuration autonomes." },
+  { "slug": "projet", "nom": "Piloter un projet",
+    "resume": "Planifier, prioriser et livrer dans les délais.",
+    "debut": "Lorem ipsum : travail encadré.",
+    "aujourdhui": "Lorem ipsum : cahier des charges, suivi, livraison." },
+  { "slug": "equipe", "nom": "Travailler en équipe",
+    "resume": "Collaborer, partager le code et communiquer avec un client.",
+    "debut": "Lorem ipsum : binômes.",
+    "aujourdhui": "Lorem ipsum : équipe de 5 avec rôles et outils partagés." }
+]

@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base titre="Contact">
+  <h1>Me contacter</h1>
+  <!-- Remplace l'URL par celle de ton formulaire Formspree -->
+  <form action="https://formspree.io/f/VOTRE-ID" method="POST">
+    <label>Nom <input name="nom" required /></label>
+    <label>E-mail <input type="email" name="email" required /></label>
+    <label>Message <textarea name="message" rows="6" required></textarea></label>
+    <button class="btn" type="submit">Envoyer le message</button>
+  </form>
+  <p>Mon travail est aussi sur <a href="https://github.com/VOTRE-PSEUDO">GitHub</a>.</p>
+</Base>

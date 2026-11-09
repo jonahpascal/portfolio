@@ -1,0 +1,21 @@
+[
+  { "slug": "kill-keny", "titre": "Site et application pour le groupe Kill Keny",
+    "type": "Projet d'équipe, client réel", "stack": ["WordPress", "Vue", "Node.js", "Express", "Git"],
+    "contexte": "Le groupe Kill Keny (Agen) voulait un site vitrine et un outil interne.",
+    "besoin": "Présenter le groupe en ligne et gérer au même endroit les setlists, contrats et matériel.",
+    "solution": "Un site WordPress sur mesure, et une application web installable (PWA) avec Vue et Node.js. Équipe de 5, cahier des charges versionné sur GitHub.",
+    "resultat": "Lorem ipsum : à compléter (livraison, retours du groupe).",
+    "competences": ["developper", "donnees", "projet", "equipe"] },
+  { "slug": "stage", "titre": "Stage en entreprise",
+    "type": "Stage", "stack": ["Lorem", "Ipsum"],
+    "contexte": "Lorem ipsum dolor sit amet, entreprise et mission.",
+    "besoin": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "solution": "Lorem ipsum dolor sit amet, ce que j'ai réalisé.",
+    "resultat": "Lorem ipsum dolor sit amet, résultat obtenu.",
+    "competences": ["developper", "equipe"] },
+  { "slug": "projet-perso", "titre": "Projet personnel",
+    "type": "Projet personnel", "stack": ["Lorem"],
+    "contexte": "Lorem ipsum dolor sit amet.", "besoin": "Lorem ipsum dolor sit amet.",
+    "solution": "Lorem ipsum dolor sit amet.", "resultat": "Lorem ipsum dolor sit amet.",
+    "competences": ["systemes", "developper"] }
+]

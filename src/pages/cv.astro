@@ -1,0 +1,9 @@
+---
+import Base from '../layouts/Base.astro';
+import { u } from '../utils.js';
+---
+<Base titre="CV">
+  <h1>Mon CV</h1>
+  <p>Lorem ipsum : ici viendra ton CV (expériences, formation, langues).</p>
+  <p><a class="btn" href={u('cv.pdf')}>Télécharger le CV (PDF)</a></p>
+</Base>

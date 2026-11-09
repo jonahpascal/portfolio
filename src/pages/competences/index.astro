@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import competences from '../../data/competences.json';
+import projets from '../../data/projets.json';
+import { u } from '../../utils.js';
+---
+<Base titre="Compétences">
+  <h1>Compétences</h1>
+  <p>Ce que je sais faire, comment j'ai progressé, et les projets qui le prouvent.</p>
+  <div class="grid">
+    {competences.map((c) => (
+      <article class="carte">
+        <h2><a href={u(`competences/${c.slug}/`)}>{c.nom}</a></h2>
+        <p>{c.resume}</p>
+        <p class="meta">{projets.filter((p) => p.competences.includes(c.slug)).length} projet(s)</p>
+      </article>
+    ))}
+  </div>
+</Base>

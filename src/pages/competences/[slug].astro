@@ -1,0 +1,22 @@
+---
+import Base from '../../layouts/Base.astro';
+import competences from '../../data/competences.json';
+import projets from '../../data/projets.json';
+import { u } from '../../utils.js';
+export function getStaticPaths() {
+  return competences.map((c) => ({ params: { slug: c.slug }, props: { c } }));
+}
+const { c } = Astro.props;
+const lies = projets.filter((p) => p.competences.includes(c.slug));
+---
+<Base titre={c.nom}>
+  <h1>{c.nom}</h1>
+  <p>{c.resume}</p>
+  <h2>Mon évolution</h2>
+  <dl>
+    <dt>Au début</dt><dd>{c.debut}</dd>
+    <dt>Aujourd'hui</dt><dd>{c.aujourdhui}</dd>
+  </dl>
+  <h2>Projets qui le prouvent</h2>
+  <ul>{lies.map((p) => <li><a href={u(`projets/${p.slug}/`)}>{p.titre}</a></li>)}</ul>
+</Base>

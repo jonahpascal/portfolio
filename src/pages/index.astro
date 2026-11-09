@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import { u } from '../utils.js';
+---
+<Base titre="Accueil">
+  <section class="hero">
+    <div>
+      <h1>Je construis des applications web utiles et soignées.</h1>
+      <p>Étudiant en informatique à Blagnac, je cherche un stage pour mettre mes compétences au service d'une équipe. Lorem ipsum : ton paragraphe de présentation.</p>
+      <p class="actions"><a class="btn" href={u('projets/')}>Voir mes projets</a> <a class="btn alt" href={u('contact/')}>Me contacter</a></p>
+    </div>
+    <img src={u('photo.svg')} alt="Portrait de Prénom Nom" width="400" height="480" />
+  </section>
+</Base>
