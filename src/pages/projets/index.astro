@@ -1,17 +1,30 @@
 ---
 import Base from '../../layouts/Base.astro';
 import projets from '../../data/projets.json';
+import competences from '../../data/competences.json';
 import { u } from '../../utils.js';
 ---
 <Base titre="Projets">
   <h1>Projets</h1>
+  <p class="lead">Filtre par compétence pour voir ce qui la prouve.</p>
+  <div class="filtres">
+    <button aria-pressed="true" data-f="all">Tous</button>
+    {competences.map((c) => <button aria-pressed="false" data-f={c.slug} style={`--c:${c.couleur}`}>{c.nom}</button>)}
+  </div>
   <div class="grid">
     {projets.map((p) => (
-      <article class="carte">
-        <h2><a href={u(`projets/${p.slug}/`)}>{p.titre}</a></h2>
+      <a class="carte" href={u(`projets/${p.slug}/`)} data-c={p.competences.join(' ')} style={`--c:${competences.find((c) => c.slug === p.competences[0]).couleur}`}>
+        <h2>{p.titre}</h2>
         <p class="meta">{p.type}</p>
         <p>{p.besoin}</p>
-      </article>
+      </a>
     ))}
   </div>
+  <script>
+    const bs = document.querySelectorAll('.filtres button'), cs = document.querySelectorAll('.carte');
+    bs.forEach((b) => b.addEventListener('click', () => {
+      bs.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      cs.forEach((c) => { c.hidden = b.dataset.f !== 'all' && !c.dataset.c.split(' ').includes(b.dataset.f); });
+    }));
+  </script>
 </Base>

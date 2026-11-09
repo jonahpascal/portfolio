@@ -1,14 +1,50 @@
 ---
 import Base from '../layouts/Base.astro';
+import competences from '../data/competences.json';
+import projets from '../data/projets.json';
 import { u } from '../utils.js';
 ---
 <Base titre="Accueil">
   <section class="hero">
-    <div>
-      <h1>Je construis des applications web utiles et soignées.</h1>
+    <div class="intro">
+      <h1>Je construis des applications web <span class="hl">utiles</span> et soignées.</h1>
       <p>Étudiant en informatique à Blagnac, je cherche un stage pour mettre mes compétences au service d'une équipe. Lorem ipsum : ton paragraphe de présentation.</p>
       <p class="actions"><a class="btn" href={u('projets/')}>Voir mes projets</a> <a class="btn alt" href={u('contact/')}>Me contacter</a></p>
     </div>
-    <img src={u('photo.svg')} alt="Portrait de Prénom Nom" width="400" height="480" />
+    <div class="photo"><img src={u('photo.svg')} alt="Portrait de Prénom Nom" width="400" height="480" /></div>
   </section>
+
+  <section class="explorer" aria-labelledby="ex">
+    <h2 id="ex">Ce que je sais faire, et où je l'ai prouvé</h2>
+    <p class="meta">Survole une compétence pour voir les projets liés, et inversement.</p>
+    <div class="ex-cols">
+      <ul>
+        {competences.map((c) => (
+          <li data-id={`c-${c.slug}`} data-links={projets.filter((p) => p.competences.includes(c.slug)).map((p) => `p-${p.slug}`).join(' ')} style={`--c:${c.couleur}`}>
+            <a href={u(`competences/${c.slug}/`)}>{c.nom}</a>
+          </li>
+        ))}
+      </ul>
+      <ul>
+        {projets.map((p) => (
+          <li data-id={`p-${p.slug}`} data-links={p.competences.map((s) => `c-${s}`).join(' ')}>
+            <a href={u(`projets/${p.slug}/`)}>{p.titre}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <script>
+    const root = document.querySelector('.explorer');
+    const items = [...root.querySelectorAll('[data-id]')];
+    const show = (el) => {
+      const l = el.dataset.links.split(' ');
+      items.forEach((i) => { const on = i === el || l.includes(i.dataset.id); i.classList.toggle('dim', !on); i.classList.toggle('on', on); });
+    };
+    const reset = () => items.forEach((i) => i.classList.remove('dim', 'on'));
+    items.forEach((i) => { i.addEventListener('mouseenter', () => show(i)); i.addEventListener('focusin', () => show(i)); });
+    root.addEventListener('mouseleave', reset);
+    root.addEventListener('focusout', reset);
+  </script>
 </Base>

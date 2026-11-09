@@ -10,13 +10,27 @@ const { c } = Astro.props;
 const lies = projets.filter((p) => p.competences.includes(c.slug));
 ---
 <Base titre={c.nom}>
-  <h1>{c.nom}</h1>
-  <p>{c.resume}</p>
+  <h1 class="titre-c" style={`--c:${c.couleur}`}>{c.nom}</h1>
+  <p class="lead">{c.resume}</p>
   <h2>Mon évolution</h2>
-  <dl>
-    <dt>Au début</dt><dd>{c.debut}</dd>
-    <dt>Aujourd'hui</dt><dd>{c.aujourdhui}</dd>
-  </dl>
+  <div class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-t="debut">Au début</button>
+    <button role="tab" aria-selected="false" data-t="auj">Aujourd'hui</button>
+  </div>
+  <p class="panel" id="debut">{c.debut}</p>
+  <p class="panel" id="auj" hidden>{c.aujourdhui}</p>
   <h2>Projets qui le prouvent</h2>
-  <ul>{lies.map((p) => <li><a href={u(`projets/${p.slug}/`)}>{p.titre}</a></li>)}</ul>
+  <div class="grid">
+    {lies.map((p) => (
+      <a class="carte" href={u(`projets/${p.slug}/`)} style={`--c:${c.couleur}`}>
+        <h3>{p.titre}</h3><p class="meta">{p.type}</p>
+      </a>
+    ))}
+  </div>
+  <script>
+    const tabs = document.querySelectorAll('.tabs button');
+    tabs.forEach((t) => t.addEventListener('click', () => {
+      tabs.forEach((x) => { const on = x === t; x.setAttribute('aria-selected', String(on)); document.getElementById(x.dataset.t).hidden = !on; });
+    }));
+  </script>
 </Base>

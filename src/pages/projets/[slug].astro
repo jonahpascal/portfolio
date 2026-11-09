@@ -13,10 +13,16 @@ const lies = competences.filter((c) => p.competences.includes(c.slug));
   <h1>{p.titre}</h1>
   <p class="meta">{p.type}</p>
   <ul class="tags">{p.stack.map((s) => <li>{s}</li>)}</ul>
-  <h2>Le contexte</h2><p>{p.contexte}</p>
-  <h2>Le besoin</h2><p>{p.besoin}</p>
-  <h2>Ma solution</h2><p>{p.solution}</p>
-  <h2>Le résultat</h2><p>{p.resultat}</p>
-  <h2>Compétences mises en œuvre</h2>
-  <ul>{lies.map((c) => <li><a href={u(`competences/${c.slug}/`)}>{c.nom}</a></li>)}</ul>
+  <div class="detail">
+    <div>
+      <h2>Le contexte</h2><p>{p.contexte}</p>
+      <h2>Le besoin</h2><p>{p.besoin}</p>
+      <h2>Ma solution</h2><p>{p.solution}</p>
+      <h2>Le résultat</h2><p>{p.resultat}</p>
+    </div>
+    <aside>
+      <h2>Compétences mises en œuvre</h2>
+      <ul class="chips">{lies.map((c) => <li style={`--c:${c.couleur}`}><a href={u(`competences/${c.slug}/`)}>{c.nom}</a></li>)}</ul>
+    </aside>
+  </div>
 </Base>
