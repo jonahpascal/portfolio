@@ -1,0 +1,152 @@
+import { Link, useParams } from 'react-router-dom';
+import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { COMPETENCE_MAP } from '../data/competences';
+import { PROJECTS } from '../data/projects';
+import { CompetenceId } from '../types/portfolio';
+import { DraftingFrame } from '../components/DraftingFrame';
+import { CategoryBadge, TechTag } from '../components/BlueprintBadge';
+
+export function CompetenceDetailPage() {
+  const { id } = useParams<{ id: string }>();
+  const competence = id ? COMPETENCE_MAP[id as CompetenceId] : undefined;
+
+  if (!competence) {
+    return (
+      <DraftingFrame className="p-10 text-center">
+        <p className="font-mono text-xs text-[#B84A2E]">ERR // 404</p>
+        <h1 className="mt-2 font-display text-4xl text-[#1C1B18]">
+          Compétence introuvable
+        </h1>
+        <Link
+          to="/competences"
+          className="mt-6 inline-flex items-center gap-2 border border-[#1E4D7B] px-4 py-2 font-mono text-xs text-[#1E4D7B] hover:bg-[#1E4D7B] hover:text-[#FAF7F0]"
+        >
+          <ArrowLeft className="h-3.5 w-3.5" /> Retour aux compétences
+        </Link>
+      </DraftingFrame>
+    );
+  }
+
+  const linkedProjects = PROJECTS.filter((p) =>
+    p.competences.some((c) => c.competenceId === competence.id)
+  );
+
+  return (
+    <div className="space-y-10">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <Link
+          to="/competences"
+          className="inline-flex items-center gap-1.5 font-mono text-xs text-[#5C574E] hover:text-[#1E4D7B]"
+        >
+          <ArrowLeft className="h-3.5 w-3.5" /> Toutes les compétences
+        </Link>
+        <span className="font-mono text-xs text-[#1E4D7B]">
+          {competence.code} · {competence.level}
+        </span>
+      </div>
+
+      {/* Header */}
+      <header className="border-b hairline pb-8">
+        <p className="font-mono text-xs tracking-wider text-[#B84A2E] uppercase">
+          Référentiel BUT : {competence.butTitle}
+        </p>
+        <h1 className="mt-2 font-display text-4xl text-[#1C1B18] sm:text-5xl">
+          {competence.id} — {competence.title}
+        </h1>
+        <p className="mt-3 max-w-3xl font-serif text-xl text-[#5C574E]">
+          {competence.tagline}
+        </p>
+      </header>
+
+      <div className="grid gap-8 lg:grid-cols-12">
+        {/* Savoir-faire & Outils */}
+        <div className="space-y-6 lg:col-span-5">
+          <DraftingFrame label="SAVOIR-FAIRE CLÉS" className="p-6">
+            <p className="mb-4 text-sm leading-relaxed text-[#5C574E]">
+              {competence.description}
+            </p>
+            <ul className="space-y-2.5 text-sm text-[#1C1B18]">
+              {competence.pillars.map((pillar) => (
+                <li key={pillar} className="flex items-start gap-2.5">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 bg-[#1E4D7B]" />
+                  <span>{pillar}</span>
+                </li>
+              ))}
+            </ul>
+          </DraftingFrame>
+
+          <DraftingFrame label="OUTILS & TECHNOLOGIES" className="p-6">
+            <div className="flex flex-wrap gap-2">
+              {competence.tools.map((tool) => (
+                <TechTag key={tool} label={tool} />
+              ))}
+            </div>
+          </DraftingFrame>
+        </div>
+
+        {/* Linked Projects */}
+        <div className="space-y-4 lg:col-span-7">
+          <div className="flex items-center justify-between">
+            <h2 className="font-display text-3xl text-[#1C1B18]">
+              Projets <span className="italic text-[#1E4D7B]">associés</span> ({linkedProjects.length})
+            </h2>
+            <Link
+              to={`/projets?competence=${competence.id}`}
+              className="font-mono text-xs text-[#1E4D7B] hover:underline"
+            >
+              Filtrer dans Projets →
+            </Link>
+          </div>
+
+          <div className="space-y-4">
+            {linkedProjects.map((project) => {
+              const ref = project.competences.find(
+                (c) => c.competenceId === competence.id
+              );
+
+              return (
+                <DraftingFrame
+                  key={project.slug}
+                  className="p-5 transition-colors hover:border-[#1E4D7B]/60"
+                >
+                  <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <CategoryBadge category={project.category} />
+                      <span className="font-mono text-[11px] text-[#8C8578]">
+                        {project.code} · {project.year}
+                      </span>
+                    </div>
+                    <Link
+                      to={`/projets/${project.slug}`}
+                      className="inline-flex items-center gap-1 font-mono text-xs text-[#1E4D7B] hover:underline"
+                    >
+                      Voir le projet <ArrowUpRight className="h-3.5 w-3.5" />
+                    </Link>
+                  </div>
+
+                  <Link
+                    to={`/projets/${project.slug}`}
+                    className="font-serif text-xl font-medium text-[#1C1B18] hover:text-[#1E4D7B]"
+                  >
+                    {project.title}
+                  </Link>
+
+                  {ref && (
+                    <div className="mt-3 border-l-2 border-[#B84A2E] bg-[#F5F0E6] px-3.5 py-2.5">
+                      <p className="font-mono text-[10px] tracking-wider text-[#B84A2E] uppercase">
+                        Mise en œuvre de {competence.id}
+                      </p>
+                      <p className="mt-1 text-sm text-[#1C1B18]">
+                        {ref.contribution}
+                      </p>
+                    </div>
+                  )}
+                </DraftingFrame>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
